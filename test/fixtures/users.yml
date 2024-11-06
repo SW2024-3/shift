@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  uname: MyString
+  pass: MyString
+  name: MyString
+  color: MyString
+  money: 1
+
+two:
+  uname: MyString
+  pass: MyString
+  name: MyString
+  color: MyString
+  money: 1

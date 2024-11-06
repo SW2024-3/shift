@@ -1,0 +1,2 @@
+class Baito < ApplicationRecord
+end
