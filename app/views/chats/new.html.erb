@@ -1,0 +1,12 @@
+<%= form_with model: @chat do |f| %>
+  <p>
+    <%= f.label :add, '宛先' %><br>
+    <%= f.text_field :add %>
+  </p>
+  <p>
+    <%= f.label :come, 'メッセージ' %><br>
+    <%= f.text_field :come %>
+  </p>
+
+  <%= f.submit "送信" %>
+<% end %>
