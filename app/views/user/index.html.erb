@@ -1,0 +1,18 @@
+プロフィール
+<% @user.each do |e| %>
+<p>
+    ユーザー名: <%= e.uname %>
+</p>
+<p>
+    名前: <%= e.name %>
+</p>
+<p>
+    カラー: <%= e.color %>
+</p>
+<p>
+    時給: <%= e.money %>
+</p>
+<%= link_to '編集', edit_user_path(e) %>
+<% end %>
+
+<p><%= link_to '戻る', shift_index_path %></p>

@@ -1,0 +1,26 @@
+ユーザー情報編集
+
+<%= form_with model: @user, local: true do |f| %>
+  <p>
+    <%= f.label :uname, 'ユーザー名' %><br>
+    <%= f.text_field :uname %>
+  </p>
+  <p>
+    <%= f.label :name, '名前' %><br>
+    <%= f.text_field :name %>
+  </p>
+  
+  <p>
+    <%= f.label :color, 'カラー' %><br>
+    <%= f.text_field :color %>
+  </p>
+  
+  <p>
+    <%= f.label :money, '時給' %><br>
+    <%= f.number_field :money %>
+  </p>
+  
+  <p>
+    <%= f.submit '更新' %>
+  </p>
+<% end %>
