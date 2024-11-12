@@ -1,0 +1,15 @@
+<%= form_with(model: @user, url: user_index_path) do |f| %>
+  <p>
+    <%= f.label :uname, 'ユーザー名' %>
+    <%= f.text_field :uname %>
+  </p>
+  <p>
+    <%= f.label :password, 'パスワード' %>
+    <%= f.text_field :password %>
+  </p>
+   <p>
+    <%= f.label :password_confirmation, 'パスワード' %>
+    <%= f.text_field :password_confirmation %>
+  </p>
+  <%= f.submit '登録' %>
+<% end %>

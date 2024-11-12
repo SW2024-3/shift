@@ -1,0 +1,9 @@
+<% @user.each do |e| %>
+  uid: <%= e.uname %>, pasword_digest: <%= e.password_digest %>
+  <%= link_to '削除', user_path(e), data: { turbo_method: :delete } %>
+  <br>
+<% end %>
+
+<%= link_to "新規追加", new_user_path %>
+
+<%= link_to "ログイン", root_path %>
