@@ -1,6 +1,6 @@
 class UserController < ApplicationController
   def index
-    @user = User.all
+    @user = [current_user]
   end
   
   def show_users

@@ -5,8 +5,7 @@ class ChatsController < ApplicationController
   
   def create
     c = Chat.new(add: params[:chat][:add], come: params[:chat][:come])
-    #c.user = User.find_by(uid: current_user.uid) ログイン設定後
-    c.user = User.first
+    c.user = User.find_by(uname: current_user.uname)
     c.save
     redirect_to shift_index_path
   end
