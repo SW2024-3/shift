@@ -1,13 +1,19 @@
 ここはカレンダー
 <p>
-    チャット欄
-    <% @chats.each do |e| %><br>
-    <%= e.add %><br>
-    <%= e.come %>
+  <div class="chat">
+    <div class="chat-message">
+      チャット欄
+      <% @chats.each do |e| %>
+        <br>
+        <%= e.add %>
+        <br>
+        <%= e.come %>
+      <% end %>
+    </div>
+  </div>
 </p>
-<% end %>
+<br>
 
 <br>
-<%= link_to "ログアウト", top_logout_path %>
 <%= link_to "プロフィール", user_index_path %>
 <%= link_to "コメントを追加", new_chat_path %>
