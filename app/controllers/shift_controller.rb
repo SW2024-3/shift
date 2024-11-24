@@ -1,6 +1,11 @@
 class ShiftController < ApplicationController
   def index
     @chat = Chat.all
+    @user = User.pluck(:name)
+    next_month = Date.today.next_month
+    start_of_month = next_month.beginning_of_month
+    end_of_month = next_month.end_of_month
+    @date_range = (start_of_month..end_of_month).to_a
   end
   
   def new
