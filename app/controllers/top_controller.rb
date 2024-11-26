@@ -1,11 +1,16 @@
 class TopController < ApplicationController
-    def main
-        if session[:login_uname] 
-            redirect_to shift_index_path
-        else
-            render "login"
-        end
+  def main
+    if session[:login_uname]
+      user = User.find_by(uname: session[:login_uname])
+      if user&.admin
+        redirect_to admin_user_index_path
+      else
+        redirect_to shift_index_path
+      end
+    else
+      render "login"
     end
+  end
     
     def login
         user = User.find_by(uname: params[:uname])

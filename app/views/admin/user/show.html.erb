@@ -1,0 +1,22 @@
+<h2>ユーザー管理</h2>
+<table border="1" style="border-collapse: collapse">
+  <thead>
+    <tr>
+      <th>名前</th>
+      <th>管理者権限</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.admin ? "有り" : "無し" %></td>
+        <td>
+          <%= link_to "権限を編集", edit_admin_user_path(user) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<%= link_to "戻る", admin_user_index_path %>
