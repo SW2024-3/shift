@@ -1,65 +1,71 @@
 <%= form_with model: @chat do |f| %>
-<head>
-  <title>シフト管理</title>
-  <style>
-    .cell {
-      position: relative;
-      width: 80px;
-      height: 80px;
-    }
-    .checkbox-group {
-      display: none; /* 初期状態では非表示 */
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: white;
-      padding: 5px;
-      border: 1px solid #ccc;
-      z-index: 10;
-    }
-    .cell:hover .checkbox-group {
-      display: block; /* マウスオーバー時に表示 */
-    }
-    .checkbox-group label {
-      margin-right: 100px;
-    }
-  </style>
-</head>
-<body>
-  <table border="1">
-    <thead>
-      <tr>
-        <th>日付</th>
-        <% (1..31).each do |day| %>
-          <th><%= day %>日</th>
-        <% end %>
-      </tr>
-    </thead>
-    <tbody>
-      <% User.all.each do |user| %> <!-- Userモデルから全ユーザーを取得 -->
+  <head>
+    <title>シフト管理</title>
+    <style>
+      .cell {
+        position: relative;
+        width: 80px;
+        height: 120px;
+        text-align: center;
+      }
+      .shift-btn {
+        width: 50px;
+        height: 30px;
+      }
+      .shift-btn.selected {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <table border="1">
+      <thead>
         <tr>
-          <td><%= user.name %></td>
+          <th>日付</th>
           <% (1..31).each do |day| %>
-            <td class="cell">
-              <div class="checkbox-group">
-                <label>
-                  <%= f.check_box "#{user.name}[#{day}][]", multiple: true, value: 1 %> 1
-                </label>
-                <label>
-                  <%= f.check_box "#{user.name}[#{day}][]", multiple: true, value: 2 %> 2
-                </label>
-                <label>
-                  <%= f.check_box "#{user.name}[#{day}][]", multiple: true, value: 3 %> 3
-                </label>
-              </div>
-            </td>
+            <th><%= day %>日</th>
           <% end %>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-</body>
+      </thead>
+      <tbody>
+        <% User.all.each do |user| %> <!-- Userモデルから全ユーザーを取得 -->
+          <tr>
+            <td><%= user.name %></td>
+            <% (1..31).each do |day| %>
+              <td class="cell" data-user="<%= user.name %>" data-day="<%= day %>">
+                <%= f.hidden_field "#{user.name}[#{day}][]", value: "" %>
+                <%= f.submit "1", name: "#{user.name}[#{day}][]", value: 1, class: 'shift-btn', onclick: "setShiftValue(this, #{user.name}, #{day})" %>
+                <%= f.submit "2", name: "#{user.name}[#{day}][]", value: 2, class: 'shift-btn', onclick: "setShiftValue(this, #{user.name}, #{day})" %>
+                <%= f.submit "3", name: "#{user.name}[#{day}][]", value: 3, class: 'shift-btn', onclick: "setShiftValue(this, #{user.name}, #{day})" %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= f.submit "送信" %>
+  </body>
 
-<%= f.submit "送信" %>
+  <script>
+    // ボタンがクリックされたときの処理
+    function setShiftValue(button, userName, day) {
+      // ボタンがクリックされたセルを取得
+      const cell = button.closest('.cell');
+      
+      // クリックされたボタンの値を隠しフィールドに設定
+      const hiddenField = cell.querySelector('input[type="hidden"]');
+      hiddenField.value = button.value;
+
+      // セル内のボタンをすべて非表示にする
+      const buttons = cell.querySelectorAll('.shift-btn');
+      buttons.forEach(function(btn) {
+        if (btn !== button) {
+          btn.style.display = 'none'; // 他のボタンを非表示にする
+        }
+      });
+
+      // クリックされたボタンをセルに表示する
+      cell.innerHTML = button.value; // セルに選択した値を表示する
+    }
+  </script>
 <% end %>
