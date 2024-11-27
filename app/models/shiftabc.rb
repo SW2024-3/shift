@@ -1,0 +1,2 @@
+class Shiftabc < ApplicationRecord
+end

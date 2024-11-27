@@ -9,7 +9,7 @@ class ShiftController < ApplicationController
   end
   
   def new
-    @shift = Baito.new
+    @shift = Shiftabc.new
   end
   
    

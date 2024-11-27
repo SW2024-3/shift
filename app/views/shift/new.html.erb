@@ -4,6 +4,8 @@
   <style>
     .cell {
       position: relative;
+      width: 80px;
+      height: 80px;
     }
     .checkbox-group {
       display: none; /* 初期状態では非表示 */
@@ -20,7 +22,7 @@
       display: block; /* マウスオーバー時に表示 */
     }
     .checkbox-group label {
-      margin-right: 10px;
+      margin-right: 100px;
     }
   </style>
 </head>
@@ -29,48 +31,32 @@
     <thead>
       <tr>
         <th>日付</th>
-        <% (1..30).each do |day| %>
+        <% (1..31).each do |day| %>
           <th><%= day %>日</th>
         <% end %>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>田中</td>
-        <% (1..30).each do |day| %>
-          <td class="cell">
-            <div class="checkbox-group">
-              <label>
-                <%= f.check_box "tanaka[#{day}][]", multiple: true, value: 1 %> 1
-              </label>
-              <label>
-                <%= f.check_box "tanaka[#{day}][]", multiple: true, value: 2 %> 2
-              </label>
-              <label>
-                <%= f.check_box "tanaka[#{day}][]", multiple: true, value: 3 %> 3
-              </label>
-            </div>
-          </td>
-        <% end %>
-      </tr>
-      <tr>
-        <td>佐藤</td>
-        <% (1..30).each do |day| %>
-          <td class="cell">
-            <div class="checkbox-group">
-              <label>
-                <%= f.check_box "sato[#{day}][]", multiple: true, value: 1 %> 1
-              </label>
-              <label>
-                <%= f.check_box "sato[#{day}][]", multiple: true, value: 2 %> 2
-              </label>
-              <label>
-                <%= f.check_box "sato[#{day}][]", multiple: true, value: 3 %> 3
-              </label>
-            </div>
-          </td>
-        <% end %>
-      </tr>
+      <% User.all.each do |user| %> <!-- Userモデルから全ユーザーを取得 -->
+        <tr>
+          <td><%= user.name %></td>
+          <% (1..31).each do |day| %>
+            <td class="cell">
+              <div class="checkbox-group">
+                <label>
+                  <%= f.check_box "#{user.name}[#{day}][]", multiple: true, value: 1 %> 1
+                </label>
+                <label>
+                  <%= f.check_box "#{user.name}[#{day}][]", multiple: true, value: 2 %> 2
+                </label>
+                <label>
+                  <%= f.check_box "#{user.name}[#{day}][]", multiple: true, value: 3 %> 3
+                </label>
+              </div>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
     </tbody>
   </table>
 </body>
