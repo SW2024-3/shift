@@ -1,6 +1,39 @@
 ここは管理者のみのページです
+<h2><%= @date_range.first.strftime('%Y年%m月') %></h2>
+<table border="1" style="border-collapse: collapse">
+  <thead>
+    <tr>
+      <th>名前</th>
+      <% @date_range.each do |date| %>
+        <th><%= date.strftime("%d") %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <% @date_range.each do |date| %>
+          <td>
+            <% shift = @shift[[user.id, date.to_date]]&.first %>
+            <% if shift %>
+              <%= "〇" %>
+              <%= link_to '消', admin_user_path(date), data: { turbo_method: :delete } %>
+            <% else %>
+              　　
+            <% end %>
+            
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <br>
+<%= button_to 'データを更新', update_copy_admin_user_index_path, method: :post %>
+
+
 <%= link_to "ユーザー権限の編集", admin_user_path(@users) %>
 <%= link_to "コメントを追加", new_chat_path %>
 <%= link_to 'ログアウト', top_logout_path %>

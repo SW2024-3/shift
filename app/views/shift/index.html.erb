@@ -1,5 +1,5 @@
 <h2><%= @date_range.first.strftime('%Y年%m月') %></h2>
-<table border="1">
+<table border="1" style="border-collapse: collapse">
   <thead>
     <tr>
       <th>名前</th>
@@ -8,13 +8,24 @@
       <% end %>
     </tr>
   </thead>
-    <tbody>
-        <% @user.each do |name| %>
-        <tr>
-            <td><%= name %></td>
-        </tr>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <% @date_range.each do |date| %>
+          <td>
+            <% shift = @shift[[user.id, date.to_date]]&.first %>
+            <% if shift %>
+              <%= "〇" %>
+            <% else %>
+              　　
+            <% end %>
+            
+          </td>
         <% end %>
-    </tbody>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
 <p>

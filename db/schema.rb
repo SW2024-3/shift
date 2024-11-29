@@ -10,11 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_27_075705) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_29_124621) do
   create_table "chats", force: :cascade do |t|
     t.string "add"
     t.string "come"
     t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "copy_shifts", force: :cascade do |t|
+    t.datetime "tdate"
+    t.integer "shift"
+    t.integer "user_id"
+    t.datetime "tcopy"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -4,8 +4,12 @@ Rails.application.routes.draw do
   resources :chats
   
   namespace :admin do
-  resources :user, only: %i[index update edit show]
-end
+    resources :user do
+      collection do
+        post :update_copy
+      end
+    end
+  end
   
   get 'user/users', to: 'user#show_users'
   get 'top/main'

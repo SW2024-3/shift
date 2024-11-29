@@ -1,0 +1,2 @@
+class CopyShift < ApplicationRecord
+end
