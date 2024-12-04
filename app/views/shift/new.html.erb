@@ -11,9 +11,7 @@
       .shift-btn {
         width: 50px;
         height: 30px;
-      }
-      .shift-btn.selected {
-        display: none;
+        margin: 2px;
       }
     </style>
   </head>
@@ -28,44 +26,117 @@
         </tr>
       </thead>
       <tbody>
-        <% User.all.each do |user| %> <!-- Userモデルから全ユーザーを取得 -->
+        <% User.all.each do |user| %>
           <tr>
             <td><%= user.name %></td>
             <% (1..31).each do |day| %>
               <td class="cell" data-user="<%= user.name %>" data-day="<%= day %>">
-                <%= f.hidden_field "#{user.name}[#{day}][]", value: "" %>
-                <%= f.submit "1", name: "#{user.name}[#{day}][]", value: 1, class: 'shift-btn', onclick: "setShiftValue(this, #{user.name}, #{day})" %>
-                <%= f.submit "2", name: "#{user.name}[#{day}][]", value: 2, class: 'shift-btn', onclick: "setShiftValue(this, #{user.name}, #{day})" %>
-                <%= f.submit "3", name: "#{user.name}[#{day}][]", value: 3, class: 'shift-btn', onclick: "setShiftValue(this, #{user.name}, #{day})" %>
+                <%= f.hidden_field "#{user.name}[#{day}][]", value: "", class: "shift-values" %>
+                <button type="button" class="shift-btn" value="A8.5" onclick="toggleShiftValue(this, '<%= user.name %>', '<%= day %>')">A8.5</button>
+                <button type="button" class="shift-btn" value="B15" onclick="toggleShiftValue(this, '<%= user.name %>', '<%= day %>')">B15</button>
+                <button type="button" class="shift-btn" value="C22" onclick="toggleShiftValue(this, '<%= user.name %>', '<%= day %>')">C22</button>
+                <button type="button" class="shift-btn" value="✕" onclick="setXValue(this, '<%= user.name %>', '<%= day %>')">✕</button>
               </td>
             <% end %>
           </tr>
         <% end %>
+
       </tbody>
     </table>
     <%= f.submit "送信" %>
+
+    <table border="1" style="position: fixed; top: 80%; left: 20px; background: white; border-collapse: collapse; z-index: 1000;">
+      <thead>
+        <tr>
+          <th>シフト</th>
+          <th>勤務時間</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>A8.5</td>
+          <td>8:30～15:00</td>
+        </tr>
+        <tr>
+          <td>B15</td>
+          <td>15:00～22:00</td>
+        </tr>
+        <tr>
+          <td>C22</td>
+          <td>22:00～4:00</td>
+        </tr>
+      </tbody>
+    </table>
   </body>
 
   <script>
-    // ボタンがクリックされたときの処理
-    function setShiftValue(button, userName, day) {
-      // ボタンがクリックされたセルを取得
+    // シフトの選択/解除処理
+    function toggleShiftValue(button, userName, day) {
       const cell = button.closest('.cell');
+      const hiddenField = cell.querySelector('.shift-values');
       
-      // クリックされたボタンの値を隠しフィールドに設定
-      const hiddenField = cell.querySelector('input[type="hidden"]');
-      hiddenField.value = button.value;
+      // 現在の値を配列に変換
+      let values = hiddenField.value ? hiddenField.value.split(',') : [];
+      const value = button.value;
 
-      // セル内のボタンをすべて非表示にする
-      const buttons = cell.querySelectorAll('.shift-btn');
-      buttons.forEach(function(btn) {
-        if (btn !== button) {
-          btn.style.display = 'none'; // 他のボタンを非表示にする
-        }
-      });
+      // すでに選択されている場合は解除
+      if (values.includes(value)) {
+        // 選択肢を取り除く
+        values = values.filter(v => v !== value);
+      } else {
+        // 新しい選択肢を追加
+        values.push(value);
+      }
 
-      // クリックされたボタンをセルに表示する
-      cell.innerHTML = button.value; // セルに選択した値を表示する
+      // ✕が選択されている場合は解除
+      if (values.includes("✕")) {
+        values = values.filter(v => v !== "✕");
+      }
+
+      // 値を更新
+      hiddenField.value = values.join(',');
+      updateCellDisplay(cell, values);
+    }
+
+    // ✕を選択する場合
+    function setXValue(button, userName, day) {
+      const cell = button.closest('.cell');
+      const hiddenField = cell.querySelector('.shift-values');
+
+      // ✕をセットし、他の選択肢をリセット
+      hiddenField.value = "✕";
+      updateCellDisplay(cell, ["✕"]);
+    }
+
+    // セルの表示を更新
+    function updateCellDisplay(cell, values) {
+      // ✕が選択されている場合は他のボタンを無効化
+      const isX = values.includes("✕");
+
+      // セル内に表示する内容
+      if (isX) {
+        cell.innerHTML = "✕"; // ✕の場合はそのまま表示
+      } else {
+        cell.innerHTML = values.join(', '); // 選ばれたシフトをカンマ区切りで表示
+      }
+
+      // ボタンを再描画
+      const userName = cell.dataset.user;
+      const day = cell.dataset.day;
+      cell.innerHTML += `
+        <button type="button" class="shift-btn" value="A8.5" onclick="toggleShiftValue(this, '${userName}', '${day}')">A8.5</button>
+        <button type="button" class="shift-btn" value="B15" onclick="toggleShiftValue(this, '${userName}', '${day}')">B15</button>
+        <button type="button" class="shift-btn" value="C22" onclick="toggleShiftValue(this, '${userName}', '${day}')">C22</button>
+        <button type="button" class="shift-btn" value="✕" onclick="setXValue(this, '${userName}', '${day}')">✕</button>
+      `;
+
+      // ✕が選択されている場合は他のボタンを無効化
+      if (isX) {
+        const buttons = cell.querySelectorAll('.shift-btn');
+        buttons.forEach(btn => {
+          if (btn.value !== "✕") btn.disabled = true;
+        });
+      }
     }
   </script>
 <% end %>
