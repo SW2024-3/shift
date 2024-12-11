@@ -46,7 +46,7 @@
         <br>
         <%= e.add %>
         <br>
-        <%= e.come %>
+        <%= auto_link(e.come, html: { target: '_blank', rel: 'noopener' }) %>
       <% end %>
       <div class="add_come">
         <%= link_to "コメントを追加", new_chat_path %>

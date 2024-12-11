@@ -69,3 +69,6 @@ end
 gem 'rails-i18n'
 
 gem 'devise'
+
+gem 'rails-html-sanitizer'
+gem 'rails_autolink'

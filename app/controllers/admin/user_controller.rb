@@ -55,5 +55,18 @@ class Admin::UserController < ApplicationController
       redirect_to admin_user_index_path, alert: "複製する新しいデータがありません。"
     end
   end
+  
+  def share
+    target_year = params[:year].to_i
+    target_month = params[:month].to_i
+    target_date = Date.new(target_year, target_month, 1)
+    next_month = Date.today.next_month
+    start_of_month = next_month.beginning_of_month
+    end_of_month = next_month.end_of_month
+
+    @date_range = (start_of_month..end_of_month).to_a
+    @shifts = CopyShift.where(tdate: start_of_month.beginning_of_day..end_of_month.end_of_day).group_by { |shift| shift.user_id }
+    @month = target_date.strftime('%Y年%m月')
+  end
 
 end

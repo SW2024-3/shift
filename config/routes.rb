@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :user do
       collection do
         post :update_copy
+        get 'share/:year/:month', to: 'user#share', as: :share
       end
     end
   end
