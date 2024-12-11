@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_29_124621) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_04_073442) do
   create_table "chats", force: :cascade do |t|
     t.string "add"
     t.string "come"
@@ -29,7 +29,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_29_124621) do
   end
 
   create_table "shiftabcs", force: :cascade do |t|
-    t.datetime "tdate"
+    t.date "tdate"
     t.integer "shift"
     t.integer "user_id"
     t.datetime "created_at", null: false

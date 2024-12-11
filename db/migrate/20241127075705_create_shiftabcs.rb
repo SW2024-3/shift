@@ -1,7 +1,7 @@
 class CreateShiftabcs < ActiveRecord::Migration[7.1]
   def change
     create_table :shiftabcs do |t|
-      t.datetime :tdate
+      t.date :tdate
       t.integer :shift
       t.integer :user_id
 
