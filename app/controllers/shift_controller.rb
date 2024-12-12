@@ -26,7 +26,7 @@ class ShiftController < ApplicationController
     b = Baito.new(add: params[:baito][:add], come: params[:baito][:come])
     b.user = User.find_by(uname: current_user.uname)
     b.save
-    redirect_to shift_index_path
+    redirect_to shift_path
   end
   
   def destroy

@@ -1,4 +1,13 @@
-<h2>ログインエラー</h2>
-<p>ユーザーIDまたはパスワードが正しくありません。</p>
-
-<%= link_to 'ログイン画面に戻る', controller: 'top', action: 'main' %>
+<style>
+    .button-list{
+        display: none;
+    }
+</style>
+<body>
+    <h2>ログインエラー</h2><br>
+    <div class="defo">
+        <p>ユーザーIDまたはパスワードが正しくありません。</p><br>
+    
+        <%= link_to 'ログイン画面に戻る', controller: 'top', action: 'main' %>
+    </div>
+</body>

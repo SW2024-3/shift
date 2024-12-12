@@ -11,6 +11,61 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header class="header">
+    <div>SFSF</div>
+      <div class="nav-item"><%= link_to 'ログアウト', top_logout_path %></div>
+  </header>
+  
+    <div class="button-list">
+      <% if current_user && current_user.admin? %>
+      <div class="home-button">
+        
+      </div>
+      <div class="home-button">
+        <%= link_to "シフト編集", admin_user_index_path(@users) %>
+      </div>
+      <div class="home-button">
+        <%= link_to "シフトを公開", share_admin_user_index_path(year: Date.today.next_month.year, month: Date.today.next_month.month), target: "_blank" %>
+      </div>
+      <div class="home-button">
+        <%= link_to "コメントを追加", new_chat_path %>
+      </div>
+      <div class="home-button">
+        <%= link_to "チャット", admin_chats_path %>
+      </div>
+      <div class="home-button">
+        <%= link_to "ユーザー権限", '/admin/user/show' %>
+      </div>
+      
+      <% else %>
+      <div class="home-button">
+        <%= link_to "プロフィール", user_index_path %>
+      </div>
+      <div class="home-button">
+        <%= link_to "シフト", shift_index_path %>
+      </div>
+      <div class="home-button">
+        <%= link_to "チャット", chats_path %>
+      </div>
+      <div class="home-button">
+        <%= link_to "プロフィール", user_index_path %>
+      </div>
+      <div class="home-button">
+        <%= link_to "コメントを追加", new_chat_path %>
+      </div>
+      
+      <br>
+      <div class="total-info">
+        <p>合計勤務日数<br> <%= @total_days %> 日</p><br>
+        <p>合計勤務時間<br> <%= @total_hours %> 時間</p><br>
+        <p>合計給与<br> <%= @total_price.to_s %> 円</p><br>
+      </div>
+      <% end %>
+
+    </div>
+
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

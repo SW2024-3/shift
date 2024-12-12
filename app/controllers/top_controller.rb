@@ -26,5 +26,4 @@ class TopController < ApplicationController
         session.delete(:login_uname)
         redirect_to root_path
     end
-    
 end

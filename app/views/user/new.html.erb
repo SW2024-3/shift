@@ -1,15 +1,30 @@
-<%= form_with(model: @user, url: user_index_path) do |f| %>
-  <p>
-    <%= f.label :uname, 'ユーザー名' %>
-    <%= f.text_field :uname %>
-  </p>
-  <p>
-    <%= f.label :password, 'パスワード' %>
-    <%= f.text_field :password %>
-  </p>
-   <p>
-    <%= f.label :password_confirmation, 'パスワード' %>
-    <%= f.text_field :password_confirmation %>
-  </p>
-  <%= f.submit '登録' %>
-<% end %>
+<style>
+    .button-list{
+        display: none;
+    }
+</style>
+
+<body>
+  <div class="defo">
+      <%= form_with(model: @user, url: user_index_path) do |f| %>
+    <p>
+      <%= f.label :uname, 'ユーザー名' %><br>
+      <%= f.text_field :uname %>
+    </p>
+    <br>
+    <p>
+      <%= f.label :password, 'パスワード' %><br>
+      <%= f.text_field :password %>
+    </p>
+    <br>
+     <p>
+      <%= f.label :password_confirmation, 'パスワード' %><br>
+      <%= f.text_field :password_confirmation %>
+    </p>
+    <br>
+    <%= f.submit '登録' %>
+  <% end %>
+    
+  </div>
+
+</body>

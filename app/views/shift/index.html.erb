@@ -1,17 +1,9 @@
-<header class="header">
-  <nav class="nav">
-    <ul class="nav-links">
-      <li><%= link_to "プロフィール", user_index_path %></li>
-      <li><%= link_to 'ログアウト', top_logout_path %></li>
-    </ul>
-  </nav>
-</header>
-
-<h2 style="margin-left:30px;"><%= @date_range.first.strftime('%Y年%m月') %></h2>
-<table border="1" style="border-collapse: collapse">
+<body>
+<h2><%= @date_range.first.strftime('%Y年%m月') %></h2>
+<table border="1">
   <thead>
     <tr>
-      <th style="width: 100px;">名前</th>
+      <th style="width: 100px; background-color: #dcdcdc;">名前</th>
       <% @date_range.each do |date| %>
         <th><%= date.strftime("%d") %></th>
       <% end %>
@@ -20,7 +12,7 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.name %></td>
+        <td style="background-color: #dcdcdc;"><%= user.name %></td>
         <% @date_range.each do |date| %>
           <td>
             
@@ -38,29 +30,8 @@
   </tbody>
 </table>
 <br>
-<div class="container">
-  <div class="chat">
-    <div class="chat-message">
-      チャット欄
-      <% @chat.each do |e| %>
-        <br>
-        <%= e.add %>
-        <br>
-        <%= auto_link(e.come, html: { target: '_blank', rel: 'noopener' }) %>
-      <% end %>
-      <div class="add_come">
-        <%= link_to "コメントを追加", new_chat_path %>
-      </div>
-      
-    </div>
-  </div>
-
-  <div class="total-info">
-    <p>合計勤務日数: <%= @total_days %> 日</p>
-    <p>合計勤務時間: <%= @total_hours %> 時間</p>
-    <p>合計給与: <%= @total_price.to_s%> 円</p>
-  </div>
+<div class="add-shift">
+  <%= link_to "シフトを追加", new_shift_path %>
 </div>
 
-<br>
-<%= link_to "シフトを追加", new_shift_path %>
+</body>

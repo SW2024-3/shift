@@ -1,17 +1,48 @@
-プロフィール
-<% @user.each do |e| %>
-<p>
-    ユーザー名: <%= e.uname %>
-</p>
-<p>
-    名前: <%= e.name %>
-</p>
-<p>
-    カラー: <%= e.color %>
-</p>
-<p>
-    時給: <%= e.money %>
-</p>
-<%= link_to '編集', edit_user_path(e) %>
-<% end %>
-<%= link_to '戻る', shift_index_path %>
+<style>
+    .uinfo{
+        font-size: 19px;
+        width:400px;
+        border-collapse: collapse;
+        border:none;
+        margin:auto;
+    }
+    .uinfo th, .uinfo td{
+        border:none;
+        padding: 15px;
+    }
+    .uinfo td:first-child{
+        text-align: center;
+    }
+    .uinfo td:last-child {
+        text-align: center;
+    }
+</style>
+<body>
+    <h2>プロフィール</h2>
+    <table class="uinfo">
+        <% @user.each do |e| %>
+        <tr>
+            <td>ユーザー名</td>
+            <td><%= e.uname %></td>
+        </tr>
+        <tr>
+            <td>名前</td>
+            <td><%= e.name %></td>
+        </tr>
+        <tr>
+            <td>カラー</td>
+            <td><%= e.color %></td>
+        </tr>
+        <tr>
+            <td>時給</td>
+            <td><%= e.money %>円</td>
+        </tr>
+        <% end %>
+    </table>
+    <br>
+    <div class="add-shift">
+        <% @user.each do |e| %>
+        <%= link_to '編集', edit_user_path(e) %>
+        <% end %>
+    </div>
+</body>

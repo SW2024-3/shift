@@ -1,15 +1,31 @@
-<h2>ログイン</h2>
-<%= form_with url: top_login_path, method: :post, local: true do |f| %>
-    <p>
-        <%= f.label :uname, 'ユーザーID' %>
-        <%= f.text_field :uname %>
-    </p>
-    <p>
-        <%= f.label :pass, 'パスワード' %>
-        <%= f.password_field :pass %>
-        <%= f.submit 'ログイン' %>
-    </p>
-<% end %>
+<style>
+    .button-list{
+        display: none;
+    }
+</style>
+<body>
+     <h2>ログイン</h2>
+     <br>
+    <div class="defo">
+           
+            <%= form_with url: top_login_path, method: :post, local: true do |f| %>
+                <p>
+                    <%= f.label :uname, 'ユーザーID' %><br>
+                    <%= f.text_field :uname %>
+                </p>
+                <br>
+                <p>
+                    <%= f.label :pass, 'パスワード' %><br>
+                    <%= f.password_field :pass %>
+                    <p>
+                        <br>
+                        <%= f.submit 'ログイン' %>
+                    </p>
+                </p>
+            <% end %>
+            <br>
+            <%= link_to '新規登録', '/user/new', class: 'newuser' %><br>
 
-<%= link_to '新規登録', '/user/new' %>
-<%= link_to '登録一覧', '/user/users' %>
+    </div>
+
+</body>

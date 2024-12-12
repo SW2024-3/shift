@@ -1,0 +1,17 @@
+<body>
+  <h2>チャット</h2>
+    <div class="chat">
+  <div class="chat-message">
+    <% @chat.reverse_each do |e| %>
+      <div class="chat-item">
+        <p><strong><%= e.user.uname %>:</strong></p>
+        <p><%= e.add %></p>
+        <p><%= auto_link(e.come, html: { target: '_blank', rel: 'noopener' }) %></p> 
+        <br>
+        <br>
+      </div>
+    <% end %>
+  </div>
+</div>
+</body>
+
