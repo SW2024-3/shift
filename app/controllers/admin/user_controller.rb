@@ -8,6 +8,7 @@ class Admin::UserController < ApplicationController
     @date_range = (start_of_month..end_of_month).to_a
     #@shift = Baito.where(tdate: @date_range).group_by { |shift| [shift.user_id, shift.tdate] }
     @shift = CopyShift.where(tdate: start_of_month.beginning_of_day..end_of_month.end_of_day).group_by { |shift| [shift.user_id, shift.tdate.to_date] }
+    @youbi=%w[日 月 火 水 木 金 土 日]
   end
   
   def show
@@ -63,10 +64,12 @@ class Admin::UserController < ApplicationController
     next_month = Date.today.next_month
     start_of_month = next_month.beginning_of_month
     end_of_month = next_month.end_of_month
-
+    
+    @users = User.all
     @date_range = (start_of_month..end_of_month).to_a
-    @shifts = CopyShift.where(tdate: start_of_month.beginning_of_day..end_of_month.end_of_day).group_by { |shift| shift.user_id }
+    @shifts = Shiftabc.where(tdate: start_of_month.beginning_of_day..end_of_month.end_of_day) # 全ユーザーのシフトを取得
     @month = target_date.strftime('%Y年%m月')
+    @youbi = %w[日 月 火 水 木 金 土 日]
   end
 
 end

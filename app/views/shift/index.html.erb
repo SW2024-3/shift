@@ -5,7 +5,10 @@
     <tr>
       <th style="width: 100px; background-color: #dcdcdc;">名前</th>
       <% @date_range.each do |date| %>
-        <th><%= date.strftime("%d") %></th>
+        <th>
+          <%= date.day %>
+          <div class="youbi"><%= @youbi[date.wday] %></div>
+        </th>
       <% end %>
     </tr>
   </thead>
@@ -16,9 +19,9 @@
         <% @date_range.each do |date| %>
           <td>
             
-            <% shift = @shift.find { |s| s.user_id == user.id && s.tdate.to_date == date } %>
+            <% shift = @shifts.find { |s| s.user_id == user.id && s.tdate.to_date == date } %>
             <% if shift %>
-              <%= " 〇" %>
+              <%= shift.shift %>
             <% else %>
               　<%= "　" %>　
             <% end %>

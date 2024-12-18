@@ -7,6 +7,8 @@ class ShiftController < ApplicationController
     start_of_month = Date.today.next_month.beginning_of_month
     end_of_month = Date.today.next_month.end_of_month
     @date_range = (start_of_month..end_of_month).to_a
+    @shifts = Shiftabc.where(tdate: start_of_month.beginning_of_day..end_of_month.end_of_day)
+    
     user = User.find_by(uname: session[:login_uname])
     @shift = Shiftabc.where(user_id: user.id, tdate: start_of_month.beginning_of_day..end_of_month.end_of_day)
 
@@ -15,6 +17,7 @@ class ShiftController < ApplicationController
     @total_hours = @total.sum(:shift) * 5 
     jikyu=current_user.money || 0
     @total_price = @total_hours * jikyu
+    @youbi=%w[日 月 火 水 木 金 土 日]
   end
   
   def new

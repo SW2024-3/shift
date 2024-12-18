@@ -2,26 +2,36 @@
     .button-list{
         display: none;
     }
+
 </style>
+
+
 <h1>確定シフト（<%= @month %>）</h1>
 
 <table border="1" style="width: 100%; border-collapse: collapse; text-align: center; margin: 0; padding: 0;">
   <thead>
     <tr>
-      <th>名前</th>
+      <th style="width:100px; background-color: #dcdcdc;">名前</th>
       <% @date_range.each do |date| %>
-        <th><%= date.day %>日</th>
+        <th>
+          <%= date.day %>
+          <div class="youbi"><%= @youbi[date.wday] %></div>
+        </th>
       <% end %>
     </tr>
   </thead>
   <tbody>
-    <% @shifts.each do |user_id, shifts| %>
+    <% @users.each do |user| %>
       <tr>
-        <td><%= User.find(user_id).name %></td>
+        <td style="background-color: #dcdcdc;"><%= user.name %></td>
         <% @date_range.each do |date| %>
           <td>
-            <% shift = shifts.find { |s| s.tdate.to_date == date } %>
-            <%= shift ? shift.shift : "休" %>
+            <% shift = @shifts.find { |s| s.user_id == user.id && s.tdate.to_date == date } %>
+            <% if shift %>
+              <div style="color: black;"><%= shift.shift %></div>
+            <% else %>
+              <div style="color: red;">休</div>
+            <% end %>
           </td>
         <% end %>
       </tr>
