@@ -17,14 +17,29 @@ class Admin::UserController < ApplicationController
   def edit
       @user = User.find(params[:id])
   end
-  def update
-      @user = User.find(params[:id])
-      if @user.update(admin: params[:admin])
-        redirect_to admin_users_path, notice: "#{@user.name}の権限を更新しました。"
-      else
-        redirect_to admin_users_path, alert: "権限の更新に失敗しました。"
-      end
+  
+  def shift_edit
+    @shift = CopyShift.find(params[:id])
   end
+  
+  def update
+    @shift = CopyShift.find(params[:id])
+    if @shift.update(shift_params)
+      redirect_to admin_user_index_path, notice: '情報が更新されました'
+    else
+      render :shift_edit, status: 422
+    end
+  end
+  
+  def update
+    @shift = CopyShift.find(params[:id])
+    if @shift.update(shift_params)
+      redirect_to admin_user_index_path, notice: "シフトが更新されました"
+    else
+      render :shift_edit, status: :unprocessable_entity
+    end
+  end
+  
   def destroy
     date = Date.parse(params[:id])
     copy_shift = CopyShift.find_by(tdate: date.beginning_of_day..date.end_of_day)
@@ -70,6 +85,11 @@ class Admin::UserController < ApplicationController
     @shifts = Shiftabc.where(tdate: start_of_month.beginning_of_day..end_of_month.end_of_day) # 全ユーザーのシフトを取得
     @month = target_date.strftime('%Y年%m月')
     @youbi = %w[日 月 火 水 木 金 土 日]
+  end
+  
+  private
+  def shift_params
+    params.require(:copy_shift).permit(:shift)
   end
 
 end

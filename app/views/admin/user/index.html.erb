@@ -24,12 +24,15 @@
           <td>
             <% shift = @shift[[user.id, date.to_date]]&.first %>
             <% if shift %>
-              <%= shift.shift %>
-              <%= link_to '消', admin_user_path(date), data: { turbo_method: :delete } %>
+              <% if shift.shift == 4 %>
+                <%= link_to shift.shift, shift_edit_admin_user_path(shift.id), method: :get %>
+              <% else %>
+                <%= shift.shift %>
+                <%= link_to '消', admin_user_path(date), data: { turbo_method: :delete } %>
+              <% end %>
             <% else %>
               　　
             <% end %>
-            
           </td>
         <% end %>
       </tr>

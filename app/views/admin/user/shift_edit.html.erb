@@ -1,0 +1,19 @@
+<div class="defo">
+  <%= form_with model: @shift, url: admin_user_path(@shift), method: :patch do |f| %>
+  <div>
+    <label>シフトを選択してください</label>
+    <div>
+      <% [1, 2, 3].each do |option| %>
+        <div>
+          <input type="radio" id="shift_<%= option %>" name="copy_shift[shift]" value="<%= option %>" <%= 'checked' if @shift.shift == option %> />
+          <label for="shift_<%= option %>"><%= option %></label>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div>
+    <%= f.submit '更新' %>
+  </div>
+<% end %>
+
+</div>

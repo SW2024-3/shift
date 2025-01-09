@@ -9,6 +9,9 @@ Rails.application.routes.draw do
         post :update_copy
         get 'share/:year/:month', to: 'user#share', as: :share
       end
+      member do
+        get :shift_edit
+      end
     end
     resources :chats
   end
