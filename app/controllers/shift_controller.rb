@@ -14,7 +14,7 @@ class ShiftController < ApplicationController
 
     @total = Shiftabc.where(user_id: current_user.id, tdate: start_of_month..end_of_month)
     @total_days = @total.count
-    @total_hours = @total.sum(:shift) * 5 
+    @total_hours = @total.where.not(shift: nil).count*5
     jikyu=current_user.money || 0
     @total_price = @total_hours * jikyu
     @youbi=%w[日 月 火 水 木 金 土 日]
