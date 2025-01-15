@@ -1,7 +1,7 @@
 databases:
 - name: shift
-databaseName: shift_25bi
-user: shift_25bi_user
+databaseName: shift_j9v9
+user: shift_j9v9_user
 plan: free
 services:
 - type: web
