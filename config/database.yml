@@ -22,11 +22,14 @@ test:
 
 production:
   <<: *default
-  adapter: postgrespl
+  adapter: postgresql
   encoding: unicode
   pool: 5
   
   database: shift_j9v9
   username: shift_j9v9_user
+  password: jXcCcpr7XgI4CjfO4X0owFbFjg8H4aMT
+  host: dpg-cu3khf9opnds738ku6e0-a
+  port: 5432
   password: <%= ENV['MYSITE_DATABASE_PASSWORD'] %>
   url: <%= ENV['DATABASE_URL'] %>
