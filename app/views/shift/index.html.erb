@@ -6,7 +6,7 @@
       <th style="width: 100px; background-color: #dcdcdc;">名前</th>
       <% @date_range.each do |date| %>
         <th>
-          <%= date.day %>
+          <%= link_to date.day, new_shift_path(date: date) %>
           <div class="youbi"><%= @youbi[date.wday] %></div>
         </th>
       <% end %>
@@ -33,9 +33,6 @@
   </tbody>
 </table>
 <br>
-<div class="add-shift">
-  <%= link_to "シフトを追加", new_shift_path %>
-</div>
     <table border="1" style="margin-top: 50px; width:30%">
       <thead>
         <tr>

@@ -22,18 +22,30 @@ class ShiftController < ApplicationController
   
   def new
     @shift = Shiftabc.new
+    @selected_date = params[:date] ? Date.parse(params[:date]) : Date.today
   end
   
    
   def create
-    b = Baito.new(add: params[:baito][:add], come: params[:baito][:come])
-    b.user = User.find_by(uname: current_user.uname)
-    b.save
-    redirect_to shift_path
+    @shift = Shiftabc.new(shift_params)
+    @shift.user_id = current_user.id  # セッション中のユーザーを関連付け
+  
+    if @shift.save
+      redirect_to shift_index_path
+    else
+      @selected_date = @shift.tdate || Date.today
+      render :new, status: :unprocessable_entity
+    end
   end
   
   def destroy
     Shiftabc.find(params[:id]).destroy
     redirect_to shift_path
+  end
+  
+  private
+
+  def shift_params
+    params.require(:shiftabc).permit(:tdate, :shift)
   end
 end
