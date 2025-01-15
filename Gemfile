@@ -72,3 +72,5 @@ gem 'devise'
 
 gem 'rails-html-sanitizer'
 gem 'rails_autolink'
+
+gem 'pg', '~> 1.4'
