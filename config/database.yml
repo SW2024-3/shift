@@ -33,3 +33,5 @@ production:
   port: 5432
   password: <%= ENV['MYSITE_DATABASE_PASSWORD'] %>
   url: <%= ENV['DATABASE_URL'] %>
+  
+  
