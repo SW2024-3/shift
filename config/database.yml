@@ -26,7 +26,7 @@ production:
   encoding: unicode
   pool: 5
   
-  database: shift_25bi
-  username: shift_25bi_user
+  database: shift_j9v9
+  username: shift_j9v9_user
   password: <%= ENV['MYSITE_DATABASE_PASSWORD'] %>
   url: <%= ENV['DATABASE_URL'] %>
