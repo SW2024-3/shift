@@ -22,4 +22,11 @@ test:
 
 production:
   <<: *default
-  database: storage/production.sqlite3
+  adapter: postgrespl
+  encoding: unicode
+  pool: 5
+  
+  database: shift_25bi
+  username: shift_25bi_user
+  password: <%= ENV['MYSITE_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
